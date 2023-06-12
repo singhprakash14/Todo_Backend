@@ -43,22 +43,6 @@ router.delete('/:id', async (req, res) => {
 
 // Search tasks
 
-// router.get('/search', async (req, res) => {
-//   const { q: query } = req.query;
-
-//   try {
-//     const tasks = await Task.find({
-//       $or: [
-//         { title: { $regex: query, $options: 'i' } }
-//       ],
-//     });
-//     res.json(tasks);
-//   } catch (error) {
-//     res.status(500).json({ error: 'Internal server error' });
-//   }
-// });
-
-
 router.get("/todos-search/:searchText", async (req, res) => {
   try {
     const { searchText } = req.params;
@@ -78,9 +62,18 @@ router.get("/todos-search/:searchText", async (req, res) => {
 //   try {
 //     const { searchText } = req.params;
 
-//     const todos = await Todo.find({
-//       title: { $regex: new RegExp(searchText, "i") }
+//     const { body } = await client.search({
+//       index: 'your_index_name', // Replace with the name of your Elasticsearch index
+//       body: {
+//         query: {
+//           match: {
+//             title: searchText
+//           }
+//         }
+//       }
 //     });
+
+//     const todos = body.hits.hits.map(hit => hit._source);
 
 //     console.log(todos);
 
@@ -91,17 +84,11 @@ router.get("/todos-search/:searchText", async (req, res) => {
 // });
 
 
-// router.get("/search/:q", async (req, res) => {
-//     const data = req.params.q;
-  
-//     try {
-//       const user = await Task.find(  { title: { $regex: data || "", $options: 'i' } },);
-  
-//       res.status(200).json(user);
-//     } catch (err) {
-//       res.status(500).json(err);
-//     }
-//   });
+
+
+
+
+
 
 
 module.exports = router;
